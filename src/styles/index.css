@@ -226,6 +226,11 @@ table td {
   color: var(--color-secondary-600);
 }
 
+tbody tr:hover{
+  background-color:var(--color-primary-50);
+}
+
+
 .sort {
   display: flex;
   /* justify-content: space-between; */
