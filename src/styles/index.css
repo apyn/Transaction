@@ -173,12 +173,13 @@ html {
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+  width: 100%;
 }
 .header_title {
   font-size: 2rem /* 18px */;
   font-weight: 700;
   color: var(--color-primary-700);
-  width: 100%;
+  /* width: 100%; */
 }
 .main-title {
   font-size: 2rem /* 18px */;
@@ -260,6 +261,18 @@ tbody tr:hover{
 .sort-item > li:hover {
   color: var(--color-primary-700);
   cursor: pointer;
+}
+.search{
+  width: 100%;
+   /* display: flex; */
+position: relative;
+}
+.search-icon{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 10px;
+  left:10px;
 }
 .toggler {
   display: block;
