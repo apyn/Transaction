@@ -5,9 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>تسک دوره جاوااسکریپت</title>
     <link rel="stylesheet" href="./styles/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
-<salam>gdgfdg</salam>
+
   <body>
+    <section class="main-layout">
+      <aside class="sidbar">
+        <nav class="sidbar-menu">
+          <div class="menu-logo">
+            <img src="../assets/image/logo.png"  />
+          </div>
+          <!--  menu -->
+          <ul class="nav">
+            <li class="nav__item">
+              <span href="" class="nav__link" data-link>
+                <span class="">
+                  <i class="far fa-user"></i>
+                  <i class="icon-qrcode"></i>
+                </span>
+                <span class=""> داشبورد </span>
+              </span>
+            </li>
+            <li class="nav__item">
+              <span href="" class="nav__link" data-link>
+                <span class=""> تراکنش ها </span>
+              </span>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <header class="header">
+        <div class="header-item">
+          <div class="sort">
+           
+            <div class="sort-icon">
+               
+              <img class="toggler" width="20" height="20" src="../assets/image/menu.png" />
+          
+              <img width="20" height="20" src="../assets/image/sort.png" />
+              <span>مرتب سازی :</span>
+            </div>
+            <ul class="sort-item">
+              <li>کمترین قیمت</li>
+              <li>بیشترین قیمت</li>
+            </ul>
+          </div>
+          <!-- <p class="header_title">داشتبورد مدیریتی </p> -->
+          <input
+            class="textField__input"
+            type="text"
+            placeholder="جستجو تراکنش "
+          />
+        </div>
+      </header>
+      <div class="main">
+        <p class="main-title">لیست تراکنش ها</p>
+
+        <div class="table">
+          <table>
+            <thead>
+              <tr class="title-row">
+                <th>ردیف</th>
+                <th>نوع تراکنش</th>
+                <th>مبلغ</th>
+                <th>شماره پیگیری</th>
+                <th>تاریخ تراکنش</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>افزایش اعتبار</td>
+                <td>100,000,000</td>
+                <td>451585417</td>
+                <td>1403/04/01 23:56:10</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>افزایش اعتبار</td>
+                <td>100,000,000</td>
+                <td>451585417</td>
+                <td>1403/04/01 23:56:10</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
     <script src="./js/index.js"></script>
   </body>
 </html>
