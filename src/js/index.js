@@ -37,22 +37,22 @@ const searchItemShower = (data) => {
   data.forEach((element) => {
     const date = dateFormatter(element.date);
     result += `
-         <div class="table-item">
-                <span>${element.id}</span>
-                <span class="desc">${element.type}</span>
-                <span class="desc">${element.price}</span>
-                <span>${element.refId}</span>
-                <span class="desc">${date}</span>
+         <ol class="table-item">
+                <li>${element.id}</li>
+                <li class="desc">${element.type}</li>
+                <li class="desc">${element.price}</li>
+                <li>${element.refId}</li>
+                <li class="desc">${date}</li>
                 <button class="mobile-mode-btn-open hidden" data-open-btn-id=${element.refId}>جذئیات بیشتر</button>
-              </div>
-               <div class="table-item-mobile hidden" data-modal-id=${element.refId}>
-                 <span>${element.id}</span>
-                 <span>${element.type}</span>
-                 <span>${element.price}</span>
-                 <span>${element.refId}</span>
-                 <span>${date}</span>
+              </ol>
+               <ol class="table-item-mobile hidden" data-modal-id=${element.refId}>
+                 <li>${element.id}</li>
+                 <li>${element.type}</li>
+                 <li>${element.price}</li>
+                 <li>${element.refId}</li>
+                 <li>${date}</li>
                  <button class="mobile-mode-btn-close" id=${element.refId} data-close-btn-id=${element.refId}>بستن</button>
-               </div>`;
+               </ol>`;
         DOMData.innerHTML = result;
   })
 }
@@ -93,7 +93,7 @@ function getData(e) {
                   <li class="desc">${p.type}</li>
                   <li class="desc">${p.price}</li>
                   <li>${p.refId}</li>
-                  <li class="desc">${p.date}</li>
+                  <li class="desc">${date}</li>
                   <button
                     class="mobile-mode-btn-open hidden"
                     data-open-btn-id="${p.refId}" > جذئیات بیشتر </button>
@@ -103,7 +103,7 @@ function getData(e) {
                   <li>${p.type}</li>
                   <li>${p.price}</li>
                   <li>${p.refId}</li>
-                  <li>${p.date}</li>
+                  <li>${date}</li>
                   <button
                     class="mobile-mode-btn-close"
                     id="${p.refId}"
