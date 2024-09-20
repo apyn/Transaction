@@ -258,6 +258,17 @@ table {
   font-weight: bold;
   transform: scale(1.01);
 }
+.title-icone {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: .4rem;
+}
+.title-icone img {
+  width: 0.8rem;
+}
+
 .mobile-mode-btn-close,
 .mobile-mode-btn-open {
   cursor: pointer;
