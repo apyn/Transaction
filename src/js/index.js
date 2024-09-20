@@ -38,7 +38,7 @@ const searchItemShower = (data) => {
     const date = dateFormatter(element.date);
     result += `
          <ol class="table-item">
-                <li>${element.id}</li>
+                <li>${data.indexOf(element)+1}</li>
                 <li class="desc">${element.type}</li>
                 <li class="desc">${element.price}</li>
                 <li>${element.refId}</li>
@@ -75,6 +75,11 @@ const dateFormatter = (date) => {
         return (`${finalDate} در ساعت ${persianHour}:${persianMinute}`)
 }
 
+const numberFormatterToPersian = (number) => {
+  const persianNumber = new Intl.NumberFormat('fa-IR').format(number);
+  return persianNumber.toString();
+}
+
 function getData(e) {
   e.preventDefault();
   const table = document.querySelector(".main");
@@ -87,11 +92,13 @@ function getData(e) {
       
       allPaymentData = res.data.forEach((p) => {
         const date = dateFormatter(p.date);
+
+        
         result += `
             <ol class="table-item">
-                  <li>${p.id}</li>
+                  <li>${numberFormatterToPersian(p.id)}</li>
                   <li class="desc">${p.type}</li>
-                  <li class="desc">${p.price}</li>
+                  <li class="desc">${numberFormatterToPersian(p.price)}</li>
                   <li>${p.refId}</li>
                   <li class="desc">${date}</li>
                   <button
@@ -99,9 +106,9 @@ function getData(e) {
                     data-open-btn-id="${p.refId}" > جذئیات بیشتر </button>
                 </ol>
                 <ol class="table-item-mobile hidden" data-modal-id="${p.refId}">
-                  <li>${p.id}</li>
+                  <li>${numberFormatterToPersian(p.id)}</li>
                   <li>${p.type}</li>
-                  <li>${p.price}</li>
+                  <li>${numberFormatterToPersian(p.price)}</li>
                   <li>${p.refId}</li>
                   <li>${date}</li>
                   <button
@@ -110,22 +117,11 @@ function getData(e) {
                     data-close-btn-id="${p.refId}" > بستن</button>
                 </ol>`;
         DOMData.innerHTML = result;
-        // searchInput.addEventListener("input", searchJSONData);
       });
     })
     .catch((err) => console.log(err));
 
-  // function searchJSONData(e) {
-  //   const value = e.target.value.trim();
-  //   console.log(value);
-
-  //   axios
-  //     .get(`http://localhost:3000/transactions؟refId_like=${value}`)
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }
+ 
 }
 
 function hideData(e) {
