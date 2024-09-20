@@ -12,6 +12,12 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"
+      integrity="sha512-DdX/YwF5e41Ok+AI81HI8f5/5UsoxCVT9GKYZRIzpLxb8Twz4ZwPPX+jQMwMhNQ9b5+zDEefc+dcvQoPWGNZ3g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
 
   <body>
@@ -19,12 +25,12 @@
       <aside class="sidbar">
         <nav class="sidbar-menu">
           <div class="menu-logo">
-            <img src="../assets/image/logo.png"  />
+            <img src="../assets/image/logo.png" />
           </div>
           <!--  menu -->
           <ul class="nav">
             <li class="nav__item">
-              <span href="" class="nav__link" data-link>
+              <span href="" id="dashboard-btn" class="nav__link" data-link>
                 <span class="">
                   <i class="far fa-user"></i>
                   <i class="icon-qrcode"></i>
@@ -33,7 +39,7 @@
               </span>
             </li>
             <li class="nav__item">
-              <span href="" class="nav__link" data-link>
+              <span href="" id="get-data-btn" class="nav__link" data-link>
                 <span class=""> تراکنش ها </span>
               </span>
             </li>
@@ -42,67 +48,80 @@
       </aside>
       <header class="header">
         <div class="header-item">
+          <div class="search">
+            <img
+              class="toggler"
+              width="20"
+              height="20"
+              src="../assets/image/menu.png"
+            />
+            <input
+              id="search-payment"
+              class="textField__input"
+              type="text"
+              placeholder="جستجو تراکنش "
+            />
+            <img class="search-icon" src="../assets/image/search.png" />
+          </div>
           <div class="sort">
-           
             <div class="sort-icon">
-               
-              <img class="toggler" width="20" height="20" src="../assets/image/menu.png" />
-          
               <img width="20" height="20" src="../assets/image/sort.png" />
-              <span>مرتب سازی :</span>
+              <span class="desc">مرتب سازی:</span>
             </div>
-            <ul class="sort-item">
-              <li>کمترین قیمت</li>
-              <li>بیشترین قیمت</li>
-            </ul>
+            <div class="sort-items">
+              <select class="sort-item" name="" id="">
+                <option>همه</option>
+                <option>واریز</option>
+                <option>برداشت</option>
+              </select>
+              <select class="sort-item" name="" id="">
+                <option>همه</option>
+                <option>کمترین قیمت</option>
+                <option>بیشترین قیمت</option>
+                <option>جدیدترین</option>
+                <option>قدیمیترین</option>
+              </select>
+            </div>
           </div>
           <!-- <p class="header_title">داشتبورد مدیریتی </p> -->
-          <div class="search">
-            <input
-            class="textField__input"
-            type="text"
-            placeholder="جستجو تراکنش "
-          />
-                      <img class="search-icon" src="../assets/image/search.png"  />
-
-          </div>
         </div>
       </header>
-      <div class="main">
-        <p class="main-title">لیست تراکنش ها</p>
-
-        <div class="table">
-          <table>
-            <thead>
-              <tr class="title-row">
-                <th>ردیف</th>
-                <th>نوع تراکنش</th>
-                <th>مبلغ</th>
-                <th>شماره پیگیری</th>
-                <th>تاریخ تراکنش</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>افزایش اعتبار</td>
-                <td>100,000,000</td>
-                <td>451585417</td>
-                <td>1403/04/01 23:56:10</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>افزایش اعتبار</td>
-                <td>100,000,000</td>
-                <td>451585417</td>
-                <td>1403/04/01 23:56:10</td>
-              </tr>
-            </tbody>
-          </table>
+      <main class="main-section">
+        <div class="main hidden">
+          <p class="main-title">لیست تراکنش‌ها</p>
+          <div class="table">
+            <div class="table-items">
+              <div class="title-row">
+                <span>ردیف</span>
+                <span class="desc">نوع تراکنش</span>
+                <span class="desc">مبلغ</span>
+                <span>شماره پیگیری</span>
+                <span class="mobile-view">جذئیات</span>
+                <span class="desc">تاریخ تراکنش</span>
+              </div>
+              <div class="payment-details">
+                <!-- <div class="table-item">
+                <span>1</span>
+                <span>افزایش اعتبار</span>
+                <span>100,000,000</span>
+                <span>451585417</span>
+                <span>1403/04/01 23:56:10</span>
+                <button class="mobile-mode-btn">جذئیات بیشتر</button>
+              </div> -->
+                <!-- <div class="table-item-mobile hidden">
+                <span>1</span>
+                <span>افزایش اعتبار</span>
+                <span>100,000,000</span>
+                <span>451585417</span>
+                <span>1403/04/01 23:56:10</span>
+                <button class="mobile-mode-btn-close">بستن</button>
+              </div> -->
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </main>
     </section>
-
     <script src="./js/index.js"></script>
   </body>
 </html>
