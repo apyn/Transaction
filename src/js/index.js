@@ -4,6 +4,9 @@ const main = document.querySelector(".main-section");
 const hideDataBtn = document.querySelector("#dashboard-btn");
 const searchInput = document.querySelector("#search-payment");
 const getDataBtn = document.querySelector("#get-data-btn");
+const filterSelect = document.querySelector('#filter');
+const filterOptions = filterSelect.options;
+
 
 let allPaymentData = [];
 
@@ -21,12 +24,60 @@ document.addEventListener("DOMContentLoaded", () => {
   hideDataBtn.addEventListener("click", (e) => hideData(e));
 });
 
+
+const filterHandler = (event) => {
+  const filter = event.value;
+
+  switch(filter) {
+    case "low-to-high":
+      axios
+      .get("http://localhost:3000/transactions?_sort=price&_order=asc")
+      .then((res) => searchItemShower(res.data))
+    break;
+
+    case "high-to-low":
+      axios
+      .get("http://localhost:3000/transactions?_sort=price&_order=desc")
+      .then((res) => searchItemShower(res.data))
+    break;
+
+    case "new":
+      axios
+      .get("http://localhost:3000/transactions")
+      .then((res) => {
+        const sortedData = res.data.sort((first, second) => second.date - first.date);
+        searchItemShower(sortedData);
+      })
+    break;
+
+    case "old":
+      axios
+      .get("http://localhost:3000/transactions")
+      .then((res) => {
+        const sortedData = res.data.sort((first, second) => first.date - second.date);
+        searchItemShower(sortedData);
+      })
+    break;
+
+    case "all":
+      axios
+      .get("http://localhost:3000/transactions")
+      .then((res) => searchItemShower(res.data))
+    break;
+  }
+}
+
 const searchHandler = () => {
 
 
     axios
        .get(`http://localhost:3000/transactions?refId_like=${searchInput.value}`)
        .then((res) => searchItemShower(res.data))
+}
+
+const numberFormatterToPersian = (number) => {
+  const persianNumber = new Intl.NumberFormat('fa-IR').format(number);
+  return persianNumber.toString();
 }
 
 const searchItemShower = (data) => {
@@ -38,17 +89,17 @@ const searchItemShower = (data) => {
     const date = dateFormatter(element.date);
     result += `
          <ol class="table-item">
-                <li>${data.indexOf(element)+1}</li>
+                <li>${numberFormatterToPersian(data.indexOf(element)+1)}</li>
                 <li class="desc">${element.type}</li>
-                <li class="desc">${element.price}</li>
+                <li class="desc">${numberFormatterToPersian(element.price)}</li>
                 <li>${element.refId}</li>
                 <li class="desc">${date}</li>
                 <button class="mobile-mode-btn-open hidden" data-open-btn-id=${element.refId}>جذئیات بیشتر</button>
               </ol>
                <ol class="table-item-mobile hidden" data-modal-id=${element.refId}>
-                 <li>${element.id}</li>
+                 <li>${numberFormatterToPersian(data.indexOf(element)+1)}</li>
                  <li>${element.type}</li>
-                 <li>${element.price}</li>
+                 <li>${numberFormatterToPersian(element.price)}</li>
                  <li>${element.refId}</li>
                  <li>${date}</li>
                  <button class="mobile-mode-btn-close" id=${element.refId} data-close-btn-id=${element.refId}>بستن</button>
@@ -73,11 +124,6 @@ const dateFormatter = (date) => {
         const persianMinute = new Intl.NumberFormat('fa-IR').format(minutes);
         const finalDate = formatter.format(recivedDate);
         return (`${finalDate} در ساعت ${persianHour}:${persianMinute}`)
-}
-
-const numberFormatterToPersian = (number) => {
-  const persianNumber = new Intl.NumberFormat('fa-IR').format(number);
-  return persianNumber.toString();
 }
 
 function getData(e) {
@@ -129,6 +175,5 @@ function hideData(e) {
   table.classList.add("hidden");
 }
 
-searchInput.addEventListener("input", searchHandler)
-
-
+searchInput.addEventListener("input", searchHandler);
+filterSelect.addEventListener('change', (e) => filterHandler(e.target))
