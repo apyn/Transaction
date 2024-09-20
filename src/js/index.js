@@ -5,10 +5,11 @@ const hideDataBtn = document.querySelector("#dashboard-btn");
 const searchInput = document.querySelector("#search-payment");
 const getDataBtn = document.querySelector("#get-data-btn");
 const filterSelect = document.querySelector('#filter');
-const filterOptions = filterSelect.options;
-
+const typeSelect = document.querySelector("#type")
 
 let allPaymentData = [];
+
+let originalDatas = [];
 
 const root = document.documentElement;
 Toggler.addEventListener("click", () => {
@@ -23,6 +24,19 @@ document.addEventListener("DOMContentLoaded", () => {
   getDataBtn.addEventListener("click", (e) => getData(e));
   hideDataBtn.addEventListener("click", (e) => hideData(e));
 });
+
+
+const fetchData = () => {
+
+  axios
+  .get("http://localhost:3000/transactions")
+  .then((res) => {
+    res.data.forEach((item) => originalDatas.push(item))
+  });
+
+}
+
+fetchData()
 
 
 const filterHandler = (event) => {
@@ -42,29 +56,46 @@ const filterHandler = (event) => {
     break;
 
     case "new":
-      axios
-      .get("http://localhost:3000/transactions")
-      .then((res) => {
-        const sortedData = res.data.sort((first, second) => second.date - first.date);
+        const sortedData = originalDatas.sort((first, second) => second.date - first.date);
         searchItemShower(sortedData);
-      })
     break;
 
     case "old":
-      axios
-      .get("http://localhost:3000/transactions")
-      .then((res) => {
-        const sortedData = res.data.sort((first, second) => first.date - second.date);
-        searchItemShower(sortedData);
+        const sortedDataOlder = originalDatas.sort((first, second) => first.date - second.date);
+        searchItemShower(sortedDataOlder);
+    break;
+
+    case "all":
+      searchItemShower(originalDatas)
+    break;
+  }
+}
+
+const typeHandler = (event) => {
+  
+  const type = event.value;
+  let filteredByTypeItems = [];
+
+  switch (type) {
+    case "deposite":
+      originalDatas.forEach((item) => {
+        if (item.type.includes("افزایش")) filteredByTypeItems.push(item)
+      })
+    break;
+
+    case "withdrawal":
+      originalDatas.forEach((item) => {
+        if (item.type.includes("برداشت")) filteredByTypeItems.push(item)
       })
     break;
 
     case "all":
-      axios
-      .get("http://localhost:3000/transactions")
-      .then((res) => searchItemShower(res.data))
+      const sortedDataOlder = originalDatas.sort((first, second) => first.date - second.date);
+      searchItemShower(sortedDataOlder);
     break;
-  }
+}
+
+  searchItemShower(filteredByTypeItems)
 }
 
 const searchHandler = () => {
@@ -177,3 +208,4 @@ function hideData(e) {
 
 searchInput.addEventListener("input", searchHandler);
 filterSelect.addEventListener('change', (e) => filterHandler(e.target))
+typeSelect.addEventListener('change', (e) => typeHandler(e.target))
