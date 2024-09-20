@@ -21,6 +21,24 @@ document.addEventListener("DOMContentLoaded", () => {
   hideDataBtn.addEventListener("click", (e) => hideData(e));
 });
 
+const dateFormatter = (date) => {
+  const formatter = new Intl.DateTimeFormat('fa-IR', {
+    calender:'persian',
+    year:'numeric',
+    month:'numeric',
+    day:'numeric'
+  })
+
+      
+        const recivedDate = new Date(date);
+        const hour = recivedDate.getHours();
+        const minutes = recivedDate.getMinutes();
+        const persianHour = new Intl.NumberFormat('fa-IR').format(hour);
+        const persianMinute = new Intl.NumberFormat('fa-IR').format(minutes);
+        const finalDate = formatter.format(recivedDate);
+        return (`${finalDate} در ساعت ${persianHour}:${persianMinute}`)
+}
+
 function getData(e) {
   e.preventDefault();
   const table = document.querySelector(".main");
@@ -30,7 +48,9 @@ function getData(e) {
     .then((res) => {
       const DOMData = document.querySelector(".payment-details");
       let result = ``;
+      
       allPaymentData = res.data.forEach((p) => {
+        const date = dateFormatter(p.date);
         result += `
             <ol class="table-item">
                   <li>${p.id}</li>
@@ -76,3 +96,5 @@ function hideData(e) {
   const table = document.querySelector(".main");
   table.classList.add("hidden");
 }
+
+
