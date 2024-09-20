@@ -21,6 +21,42 @@ document.addEventListener("DOMContentLoaded", () => {
   hideDataBtn.addEventListener("click", (e) => hideData(e));
 });
 
+const searchHandler = () => {
+
+
+    axios
+       .get(`http://localhost:3000/transactions?refId_like=${searchInput.value}`)
+       .then((res) => searchItemShower(res.data))
+}
+
+const searchItemShower = (data) => {
+  const DOMData = document.querySelector(".payment-details");
+  let result ="";
+
+
+  data.forEach((element) => {
+    const date = dateFormatter(element.date);
+    result += `
+         <ol class="table-item">
+                <li>${element.id}</li>
+                <li class="desc">${element.type}</li>
+                <li class="desc">${element.price}</li>
+                <li>${element.refId}</li>
+                <li class="desc">${date}</li>
+                <button class="mobile-mode-btn-open hidden" data-open-btn-id=${element.refId}>جذئیات بیشتر</button>
+              </ol>
+               <ol class="table-item-mobile hidden" data-modal-id=${element.refId}>
+                 <li>${element.id}</li>
+                 <li>${element.type}</li>
+                 <li>${element.price}</li>
+                 <li>${element.refId}</li>
+                 <li>${date}</li>
+                 <button class="mobile-mode-btn-close" id=${element.refId} data-close-btn-id=${element.refId}>بستن</button>
+               </ol>`;
+        DOMData.innerHTML = result;
+  })
+}
+
 const dateFormatter = (date) => {
   const formatter = new Intl.DateTimeFormat('fa-IR', {
     calender:'persian',
@@ -57,7 +93,7 @@ function getData(e) {
                   <li class="desc">${p.type}</li>
                   <li class="desc">${p.price}</li>
                   <li>${p.refId}</li>
-                  <li class="desc">${p.date}</li>
+                  <li class="desc">${date}</li>
                   <button
                     class="mobile-mode-btn-open hidden"
                     data-open-btn-id="${p.refId}" > جذئیات بیشتر </button>
@@ -67,34 +103,36 @@ function getData(e) {
                   <li>${p.type}</li>
                   <li>${p.price}</li>
                   <li>${p.refId}</li>
-                  <li>${p.date}</li>
+                  <li>${date}</li>
                   <button
                     class="mobile-mode-btn-close"
                     id="${p.refId}"
                     data-close-btn-id="${p.refId}" > بستن</button>
                 </ol>`;
         DOMData.innerHTML = result;
-        searchInput.addEventListener("input", searchJSONData);
+        // searchInput.addEventListener("input", searchJSONData);
       });
     })
     .catch((err) => console.log(err));
 
-  function searchJSONData(e) {
-    const value = e.target.value.trim();
-    console.log(value);
+  // function searchJSONData(e) {
+  //   const value = e.target.value.trim();
+  //   console.log(value);
 
-    axios
-      .get(`http://localhost:3000/transactions؟refId_like=${value}`)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
-  }
+  //   axios
+  //     .get(`http://localhost:3000/transactions؟refId_like=${value}`)
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
 }
 
 function hideData(e) {
   const table = document.querySelector(".main");
   table.classList.add("hidden");
 }
+
+searchInput.addEventListener("input", searchHandler)
 
 
