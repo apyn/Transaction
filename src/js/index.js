@@ -88,22 +88,27 @@ function getData(e) {
       allPaymentData = res.data.forEach((p) => {
         const date = dateFormatter(p.date);
         result += `
-         <div class="table-item">
-                <span>${p.id}</span>
-                <span class="desc">${p.type}</span>
-                <span class="desc">${p.price}</span>
-                <span>${p.refId}</span>
-                <span class="desc">${date}</span>
-                <button class="mobile-mode-btn-open hidden" data-open-btn-id=${p.refId}>جذئیات بیشتر</button>
-              </div>
-               <div class="table-item-mobile hidden" data-modal-id=${p.refId}>
-                 <span>${p.id}</span>
-                 <span>${p.type}</span>
-                 <span>${p.price}</span>
-                 <span>${p.refId}</span>
-                 <span>${date}</span>
-                 <button class="mobile-mode-btn-close" id=${p.refId} data-close-btn-id=${p.refId}>بستن</button>
-               </div>`;
+            <ol class="table-item">
+                  <li>${p.id}</li>
+                  <li class="desc">${p.type}</li>
+                  <li class="desc">${p.price}</li>
+                  <li>${p.refId}</li>
+                  <li class="desc">${p.date}</li>
+                  <button
+                    class="mobile-mode-btn-open hidden"
+                    data-open-btn-id="${p.refId}" > جذئیات بیشتر </button>
+                </ol>
+                <ol class="table-item-mobile hidden" data-modal-id="${p.refId}">
+                  <li>${p.id}</li>
+                  <li>${p.type}</li>
+                  <li>${p.price}</li>
+                  <li>${p.refId}</li>
+                  <li>${p.date}</li>
+                  <button
+                    class="mobile-mode-btn-close"
+                    id="${p.refId}"
+                    data-close-btn-id="${p.refId}" > بستن</button>
+                </ol>`;
         DOMData.innerHTML = result;
         // searchInput.addEventListener("input", searchJSONData);
       });
