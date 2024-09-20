@@ -21,6 +21,24 @@ document.addEventListener("DOMContentLoaded", () => {
   hideDataBtn.addEventListener("click", (e) => hideData(e));
 });
 
+const dateFormatter = (date) => {
+  const formatter = new Intl.DateTimeFormat('fa-IR', {
+    calender:'persian',
+    year:'numeric',
+    month:'numeric',
+    day:'numeric'
+  })
+
+      
+        const recivedDate = new Date(date);
+        const hour = recivedDate.getHours();
+        const minutes = recivedDate.getMinutes();
+        const persianHour = new Intl.NumberFormat('fa-IR').format(hour);
+        const persianMinute = new Intl.NumberFormat('fa-IR').format(minutes);
+        const finalDate = formatter.format(recivedDate);
+        return (`${finalDate} در ساعت ${persianHour}:${persianMinute}`)
+}
+
 function getData(e) {
   e.preventDefault();
   const table = document.querySelector(".main");
@@ -30,14 +48,16 @@ function getData(e) {
     .then((res) => {
       const DOMData = document.querySelector(".payment-details");
       let result = ``;
+      
       allPaymentData = res.data.forEach((p) => {
+        const date = dateFormatter(p.date);
         result += `
          <div class="table-item">
                 <span>${p.id}</span>
                 <span class="desc">${p.type}</span>
                 <span class="desc">${p.price}</span>
                 <span>${p.refId}</span>
-                <span class="desc">${p.date}</span>
+                <span class="desc">${date}</span>
                 <button class="mobile-mode-btn-open hidden" data-open-btn-id=${p.refId}>جذئیات بیشتر</button>
               </div>
                <div class="table-item-mobile hidden" data-modal-id=${p.refId}>
@@ -45,7 +65,7 @@ function getData(e) {
                  <span>${p.type}</span>
                  <span>${p.price}</span>
                  <span>${p.refId}</span>
-                 <span>${p.date}</span>
+                 <span>${date}</span>
                  <button class="mobile-mode-btn-close" id=${p.refId} data-close-btn-id=${p.refId}>بستن</button>
                </div>`;
         DOMData.innerHTML = result;
@@ -71,3 +91,5 @@ function hideData(e) {
   const table = document.querySelector(".main");
   table.classList.add("hidden");
 }
+
+
