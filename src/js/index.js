@@ -21,6 +21,42 @@ document.addEventListener("DOMContentLoaded", () => {
   hideDataBtn.addEventListener("click", (e) => hideData(e));
 });
 
+const searchHandler = () => {
+
+
+    axios
+       .get(`http://localhost:3000/transactions?refId_like=${searchInput.value}`)
+       .then((res) => searchItemShower(res.data))
+}
+
+const searchItemShower = (data) => {
+  const DOMData = document.querySelector(".payment-details");
+  let result ="";
+
+
+  data.forEach((element) => {
+    const date = dateFormatter(element.date);
+    result += `
+         <div class="table-item">
+                <span>${element.id}</span>
+                <span class="desc">${element.type}</span>
+                <span class="desc">${element.price}</span>
+                <span>${element.refId}</span>
+                <span class="desc">${date}</span>
+                <button class="mobile-mode-btn-open hidden" data-open-btn-id=${element.refId}>جذئیات بیشتر</button>
+              </div>
+               <div class="table-item-mobile hidden" data-modal-id=${element.refId}>
+                 <span>${element.id}</span>
+                 <span>${element.type}</span>
+                 <span>${element.price}</span>
+                 <span>${element.refId}</span>
+                 <span>${date}</span>
+                 <button class="mobile-mode-btn-close" id=${element.refId} data-close-btn-id=${element.refId}>بستن</button>
+               </div>`;
+        DOMData.innerHTML = result;
+  })
+}
+
 const dateFormatter = (date) => {
   const formatter = new Intl.DateTimeFormat('fa-IR', {
     calender:'persian',
@@ -69,27 +105,29 @@ function getData(e) {
                  <button class="mobile-mode-btn-close" id=${p.refId} data-close-btn-id=${p.refId}>بستن</button>
                </div>`;
         DOMData.innerHTML = result;
-        searchInput.addEventListener("input", searchJSONData);
+        // searchInput.addEventListener("input", searchJSONData);
       });
     })
     .catch((err) => console.log(err));
 
-  function searchJSONData(e) {
-    const value = e.target.value.trim();
-    console.log(value);
+  // function searchJSONData(e) {
+  //   const value = e.target.value.trim();
+  //   console.log(value);
 
-    axios
-      .get(`http://localhost:3000/transactions؟refId_like=${value}`)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
-  }
+  //   axios
+  //     .get(`http://localhost:3000/transactions؟refId_like=${value}`)
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
 }
 
 function hideData(e) {
   const table = document.querySelector(".main");
   table.classList.add("hidden");
 }
+
+searchInput.addEventListener("input", searchHandler)
 
 
