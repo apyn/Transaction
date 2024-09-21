@@ -56,10 +56,11 @@
               src="../assets/image/menu.png"
             />
             <input
+              dir="rtl"
               id="search-payment"
               class="textField__input"
-              type="text"
-              placeholder="جستجو تراکنش "
+              type="tel"
+              placeholder="جستجو تراکنش"
             />
             <img class="search-icon" src="../assets/image/search.png" />
           </div>
@@ -83,18 +84,17 @@
               </select>
             </div>
           </div>
-          <!-- <p class="header_title">داشتبورد مدیریتی </p> -->
         </div>
       </header>
+      <!-- main -->
       <main class="main-section">
         <div class="main hidden">
           <p class="main-title">لیست تراکنش‌ها</p>
           <div class="table">
             <div class="table-items">
-              <ul class="title-row" >
+              <ul class="title-row">
                 <li id="sort-by-id" class="title-icone">
-                  <span>ردیف</span
-                  ><img src="/assets/image/arrow-down.png" alt="" />
+                  <span>ردیف</span>
                 </li>
                 <li id="sort-by-type" class="title-icone desc">
                   <span>نوع تراکنش</span
@@ -105,52 +105,23 @@
                   ><img src="/assets/image/arrow-down.png" alt="" />
                 </li>
                 <li>شماره پیگیری</li>
-                <li class="mobile-view">
-                    جزئیات
-                </li>
+                <li class="mobile-view">جزئیات</li>
                 <li id="sort-by-date" class="title-icone desc">
                   <span>تاریخ تراکنش</span
                   ><img src="/assets/image/arrow-down.png" alt="" />
                 </li>
               </ul>
-           
-
-              <div class="payment-details">
-          
-                <!-- <ol class="table-item">
-                <li>1</li>
-                <li>افزایش اعتبار</li>
-                <li>100,000,000</li>
-                <li>451585417</li>
-                <li>1403/04/01 23:56:10</li>
-                <button  class="mobile-mode-btn">جذئیات بیشتر</button>
-  
-              </ol> -->
-                <!-- <ol class="table-item-mobile hidden">
-                <li>1</li>
-                <li>افزایش اعتبار</li>
-                <li>100,000,000</li>
-                <li>451585417</li>
-                <li>1403/04/01 23:56:10</li>
-                <button class="mobile-mode-btn-close">بستن</button>
-              </ol> -->
-              </div>
+              <div class="payment-details"></div>
             </div>
           </div>
         </div>
-  <button
-                  id="open-modal"
-                                      class="mobile-mode-btn-open hidden"
-                     > جذئیات بیشتر </button>
-
-              <div class="backdrop">
-                <div class="modal">
-                  <div class="modal__header">
-                    <p>نمایش جزئیات تراکنش</p>
-                    <button class="close-modal">❌</button>
-                  </div>
-                </div>
-              </div>
+        <!-- backdrop & modal -->
+        <div class="backdrop">
+          <div class="modal">
+            <div class="modal__header"></div>
+            <div class="modal__body"></div>
+          </div>
+        </div>
       </main>
     </section>
     <script src="./js/index.js"></script>
