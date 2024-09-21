@@ -263,33 +263,80 @@ table {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: .4rem;
+  gap: 0.4rem;
 }
 .title-icone img {
   width: 0.8rem;
 }
 
-.mobile-mode-btn-close,
-.mobile-mode-btn-open {
+.mobile-mode-btn-open,
+.mobile-mode-btn-close {
   cursor: pointer;
   display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
-  width: 8rem;
   font-size: 10px;
-  background-color: var(--color-secondary-200);
-  color: var(--color-primary-800);
+  background-color: var(--color-primary-300);
+  color: var(--color-secondary-700);
   font-weight: bold;
+  transition: all 0.2s ease-out;
+}
+
+.mobile-mode-btn-open {
+  width: 8rem;
+}
+.mobile-mode-btn-close {
+  grid-column: 1/-1;
+  justify-self: stretch;
 }
 .mobile-mode-btn-close:hover,
 .mobile-mode-btn-open:hover {
   background-color: var(--color-primary-600);
   color: var(--color-secondary-0);
 }
+
+/* .title-row-mobile, */
 .table-item-mobile {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  align-items: center;
+
+  gap: 1rem;
+}
+
+.mobile__items {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-secondary-0);
+  transition: all 0.2s ease-out;
+}
+.mobile__items :last-child {
+  transition: all 0.2s ease-out;
+}
+.mobile__items:hover :last-child {
+  color: var(--color-primary-800);
+}
+
+.mobile__items:hover {
+  color: var(--color-primary-800);
+}
+
+.mobile__items span {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.item__title {
+  font-weight: bold;
 }
 
 .table-item-mobile.hidden {
@@ -498,20 +545,31 @@ select {
   z-index: 10;
 }
 
+/* modal */
+
 .modal {
   position: fixed;
   top: 50%;
   left: 50%;
+  justify-content: center;
   transform: translateX(-50%) translateY(-50%);
-  background-color: var(--color-secondary-0);
+  background-color: var(--color-secondary-100);
   border-radius: var(--border-radius-lg);
   padding: 2rem;
-  width: calc(100vw - 4rem);
+  width: calc(100vw - 30%);
   max-width: 60rem;
+  min-width: 24rem;
   z-index: 2;
-
   max-height: calc(100vh - 4rem);
   overflow-y: auto;
+}
+
+.modal__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 3rem;
 }
 
 .hiddenModal {
