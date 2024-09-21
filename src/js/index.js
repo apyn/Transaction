@@ -6,6 +6,9 @@ const searchInput = document.querySelector("#search-payment");
 const getDataBtn = document.querySelector("#get-data-btn");
 const filterSelect = document.querySelector("#filter");
 const typeSelect = document.querySelector("#type");
+const sortByType = document.querySelector("#sort-by-type");
+const sortByDate = document.querySelector("#sort-by-date");
+const sortByPrice = document.querySelector("#sort-by-price");
 
 const backdrop = document.querySelector(".backdrop");
 const modal = document.querySelector(".modal");
@@ -48,19 +51,27 @@ const filterHandler = (event) => {
     case "low-to-high":
       axios
         .get("http://localhost:3000/transactions?_sort=price&_order=asc")
-        .then((res) => searchItemShower(res.data));
+        .then((res) => {
+          searchItemShower(res.data);
+          sortByPrice.classList.remove("rote");
+        });
+
       break;
 
     case "high-to-low":
       axios
         .get("http://localhost:3000/transactions?_sort=price&_order=desc")
-        .then((res) => searchItemShower(res.data));
+        .then((res) => {
+          searchItemShower(res.data);
+          sortByPrice.classList.add("rote");
+        });
       break;
 
     case "new":
       const sortedData = originalDatas.sort(
         (first, second) => second.date - first.date
       );
+      sortByDate.classList.add("rote");
       searchItemShower(sortedData);
       break;
 
@@ -68,10 +79,12 @@ const filterHandler = (event) => {
       const sortedDataOlder = originalDatas.sort(
         (first, second) => first.date - second.date
       );
+      sortByDate.classList.remove("rote");
       searchItemShower(sortedDataOlder);
       break;
 
     case "all":
+      sortByDate.classList.add("rote");
       searchItemShower(originalDatas);
       break;
   }
@@ -86,11 +99,13 @@ const typeHandler = (event) => {
       originalDatas.forEach((item) => {
         if (item.type.includes("افزایش")) filteredByTypeItems.push(item);
       });
+      sortByType.classList.remove("rote");
       break;
 
     case "withdrawal":
       originalDatas.forEach((item) => {
         if (item.type.includes("برداشت")) filteredByTypeItems.push(item);
+        sortByType.classList.add("rote");
       });
       break;
 
@@ -98,6 +113,7 @@ const typeHandler = (event) => {
       const sortedDataOlder = originalDatas.sort(
         (first, second) => first.date - second.date
       );
+      sortByType.classList.remove("rote");
       searchItemShower(sortedDataOlder);
       break;
   }
@@ -123,7 +139,7 @@ const searchItemShower = (data) => {
   const DOMData = document.querySelector(".payment-details");
   const searchInputValue = searchInput.value;
   let result = "";
-  // let openModalBtn = [];
+
   data.forEach((element) => {
     const elementRefId = element.refId.toString();
     const existedPayment = elementRefId.includes(searchInputValue);

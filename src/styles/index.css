@@ -267,6 +267,10 @@ table {
 }
 .title-icone img {
   width: 0.8rem;
+  transition: all 0.2s ease-out;
+}
+.title-icone img.rote {
+  transform: rotate(180deg);
 }
 
 .mobile-mode-btn-open,
